@@ -1,0 +1,8 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+
+# Activamos el modulo rewrite de apache y guardamos en una variable llamada 'url' todo lo demás que venga luego de index.php
+RewriteRule ^(.+)$ index.php?url=$1 [QSL,L]
