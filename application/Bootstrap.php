@@ -15,7 +15,7 @@ class Bootstrap {
 		// Verificamos si el archivo existe y si es legible
 		if (is_readable($rutaControlador)){
 			require_once($rutaControlador);
-			$controller = new $controller;
+			$controller = new $controller();
 
 			if (is_callable(array($controller, $metodo))){
 				$metodo = $peticion->getMetodo();

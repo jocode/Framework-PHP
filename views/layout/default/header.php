@@ -3,7 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php if (isset($this->titulo)) echo $this->titulo; ?></title>
-	<link rel="stylesheet" type="text/css" href="<?php echo $_layoutParams['ruta_css']; ?>estilos.css">
 </head>
 <body>
 	<div id="main">
