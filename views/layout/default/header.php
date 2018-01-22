@@ -3,6 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title><?php if (isset($this->titulo)) echo $this->titulo; ?></title>
+	<script type="text/javascript" src="<?php echo BASE_URL . 'public/js/jquery.min.js'; ?>"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL . 'public/js/jquery.validate.min.js'; ?>"></script>
 </head>
 <body>
 	<div id="main">
@@ -18,4 +20,9 @@
 					<?php endfor; ?>
 				<?php endif; ?>
 			</ul>
+		</div>
+		<!-- En este contenedor vamos a mostrar los errores-->
+		<div id="content">
+			<noscript><p>Para el correcto funcionamiento debe tener el soporte de Javascript habilitado</p></noscript>
+			<?php if (isset($this->_error)) echo $this->_error; ?>
 		</div>

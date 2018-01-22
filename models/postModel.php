@@ -15,6 +15,17 @@ class postModel extends Model {
 		return $post->fetchAll();
 	}
 
+	# Este método guardará los post en la base de datos
+	public function insertar($titulo, $cuerpo){
+		$this->_db->prepare("INSERT INTO post VALUES (null, :titulo, :cuerpo)")
+			->execute(
+				array(
+					':titulo' => $titulo,
+					':cuerpo' => $cuerpo
+				)
+			);
+	}
+
 }
 
 ?>

@@ -6,14 +6,18 @@
 class View {
 	
 	private $_controlador;
+	private $_js;
 
 	public function __construct(Request $peticion){
 		$this->_controlador = $peticion->getControllador();
+		$this->_js = array();
 	}
 
 	/**
 	* Método que va hacer las llamadas a las vistas
 	* Es necesario que en la carpeta views, se cree una carpeta con el mismo nombre del controlador,  y ahí incluirse los archivos para cada funcionalidad
+	* @param $vista nombre del archivo a renderizar
+	* @param $item item del enlace, para dejarlo seleccionado
 	*/
 	public function renderizar($vista, $item = false){
 		$rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
@@ -31,13 +35,25 @@ class View {
 					'titulo' => 'Hola',
 					'enlace' => BASE_URL,
 				),
+				array(
+					'id' => 'Post',
+					'titulo' => 'Post',
+					'enlace' => BASE_URL . 'post',
+				),
 			);
+
+			$js = array();
+
+			if (count($this->_js)){
+				$js = $this->_js;
+			}
 
 			$_layoutParams = array(
 				'ruta_css' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/css/',
 				'ruta_img' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/img/',
 				'ruta_js' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/js/',
 				'menu' => $menu,
+				'js' => $js,
 			);
 
 			# Incluimos el header de views/layouts/default/
@@ -51,6 +67,18 @@ class View {
 			
 		}
 	}
+
+
+	public function setJs(array $js){
+		if (is_array($js) && count($js)){
+			for ($i = 0; $i < count($js); $i++){
+				$this->_js[] = BASE_URL . 'views/' . $this->_controlador . '/js/'.$js[$i] . '.js'; 
+			}
+		} else {
+			throw new Exception("Error al cargar JS en $this->_controlador");
+		}
+	}
+
 }
 
 ?>

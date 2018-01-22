@@ -48,6 +48,34 @@ abstract class Controller {
 		}
 	}
 
+	protected function getTexto($clave){
+		if (isset($_POST[$clave]) && !empty($_POST[$clave])){
+			# Va a transformar las comillas simples y dobles
+			$_POST[$clave] = htmlspecialchars($_POST[$clave], ENT_QUOTES);
+			return $_POST[$clave];
+		} 
+		return '';
+	}
+
+	protected function getInt($clave){
+		if (isset($_POST[$clave]) && !empty($_POST[$clave])){
+			# Va a transformar las comillas simples y dobles
+			$_POST[$clave] = filter_input(INPUT_POST, $clave, FILTER_VALIDATE_INT);
+			return $_POST[$clave];
+		} 
+		return 0;
+	}
+
+	protected function redirect($ruta = false){
+		if ($ruta){
+			header("Location: " . BASE_URL . $ruta);
+			exit;
+		} else {
+			header('Location: '. BASE_URL);
+			exit;
+		}
+	}
+
 }
 
 ?>
