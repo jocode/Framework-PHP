@@ -76,6 +76,30 @@ abstract class Controller {
 		}
 	}
 
+	/**
+	* @param $int 
+	* Recibe el parámetro y lo convierte a entero
+	*/
+	protected function filtrarInt($int){
+		$int = (int) $int;
+
+		if (is_int($int)){
+			return $int;
+		} else {
+			return 0;
+		}
+		
+	}
+
+	/**
+	* Esta función devuelve el parámetro del método POST del HTTP 
+	*/
+	protected function getPostParam($clave){
+		if (isset($_POST[$clave])){
+			return $_POST[$clave];
+		}
+	}
+
 }
 
 ?>

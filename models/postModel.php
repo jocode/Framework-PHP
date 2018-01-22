@@ -26,6 +26,33 @@ class postModel extends Model {
 			);
 	}
 
+	# Este método nos va a devolver un post, solicitado por el id
+	public function getPost($id){
+		$id = (int) $id; # Estamos haciendo un Parse, una conversión de tipo de dato, para convertirlo a entero
+		$post = $this->_db->query("SELECT * FROM post WHERE id = $id");
+		return $post->fetch();
+	}
+
+	public function editarPost($id, $titulo, $cuerpo){
+		$id = (int) $id;
+		$this->_db->prepare("UPDATE post SET 
+			titulo = :titulo,
+			cuerpo = :cuerpo
+			WHERE id = :id
+			")->execute(
+				array(
+					':id' => $id,
+					':titulo' => $titulo,
+					':cuerpo' => $cuerpo
+				)
+			);
+	}
+
+	public function eliminarPost($id){
+		$id = (int) $id;
+		$this->_db->query("DELETE FROM post WHERE id = $id");
+	}
+
 }
 
 ?>
