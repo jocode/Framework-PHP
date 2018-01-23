@@ -18,4 +18,6 @@
 	<p><strong>No hay Posts...</strong></p>
 <?php endif; ?>
 
-<p><a href="<?php echo BASE_URL; ?>post/nuevo">Agregar Post</a></p>
+<?php if (Session::accesoView('especial')): ?>
+	<p><a href="<?php echo BASE_URL; ?>post/nuevo">Agregar Post</a></p>
+<?php endif; ?>

@@ -12,11 +12,13 @@ require_once(APP_PATH . 'Model.php');
 require_once(APP_PATH . 'View.php');
 require_once(APP_PATH . 'Registro.php');
 require_once(APP_PATH . 'Database.php');
+require_once(APP_PATH . 'Session.php');
 
-$request = new Request();
+# Inicializamos las variables de sesion
+Session::init();
 
 try {
-	Bootstrap::run($request);
+	Bootstrap::run(new Request());
 } catch (Exception $e){
 	echo $e->getMessage();
 }

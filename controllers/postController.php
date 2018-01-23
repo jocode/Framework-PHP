@@ -19,6 +19,9 @@ class postController extends Controller {
 	}
 
 	public function nuevo(){
+
+		Session::acceso('especial');
+
 		$this->_view->titulo = 'Nuevo Post';
 		$this->_view->setJs(array('nuevo'));
 
@@ -99,6 +102,9 @@ class postController extends Controller {
 	* Método para eliminar post
 	*/
 	public function eliminar($id){
+
+		Session::acceso('admin');
+
 		# Verificamos si es un entero
 		if (!$this->filtrarInt($id)){
 			$this->redirect('post');
