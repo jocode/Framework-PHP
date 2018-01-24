@@ -22,7 +22,7 @@ class loginController extends Controller {
 				exit;
 			}
 
-			if (!$this->getSQL('pass')){
+			if (!$_POST['pass']){
 				$this->_view->_error = 'Debe introducir su password';
 				$this->_view->renderizar('index', 'login');
 				exit;
@@ -30,7 +30,7 @@ class loginController extends Controller {
 
 			$row = $this->_login->getUsuario(
 						$this->getAlphaNum('usuario'),
-						$this->getSQL('pass')
+						$_POST['pass']
 					);
 
 			if (!$row){
