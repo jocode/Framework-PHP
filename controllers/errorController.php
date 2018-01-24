@@ -34,6 +34,7 @@ class errorController extends Controller {
 
 		$error['default'] = 'Ha ocurrido un error y la página no puede mostrarse';
 		$error['5050'] = 'Acceso restringido';
+		$error['8080'] = 'Tiempo de la sesión agotado';
 
 		if (array_key_exists($codigo, $error)){
 			return $error[$codigo];

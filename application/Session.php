@@ -63,6 +63,8 @@ class Session {
 			exit;
 		}
 
+		Session::tiempo();
+
 		# Si el nivel de acceso es mayor que el del usuario autenticado, no lo va a dejar ingresar
 		if (Session::getLevel($level) > Session::getLevel(Session::get('level'))){
 			header('Location: ' . BASE_URL . 'error/access/5050');
@@ -100,6 +102,75 @@ class Session {
 			throw new Exception("Error de Acceso");
 		} else {
 			return $role[$level];
+		}
+	}
+
+	/**
+	* Me permite seleccionar cierto grupo de usuarios para darle permiso
+	*/
+	public static function accesoEstricto(array $level, $noAdmin = false){
+		if (!Session::get('autenticado')){
+			header('Location: ' . BASE_URL . 'error/access/5050');
+			exit;
+		}
+
+		Session::tiempo();
+
+		if ($noAdmin == false){
+			if (Session::get('level') == 'admin'){
+				return;
+			}
+		}
+
+		if (count($level)){
+			if (in_array(Session::get('level'), $level)){
+				return;
+			}
+		}
+		header('Location: ' . BASE_URL . 'error/access/5050');
+	}
+
+	/**
+	* Muestra u oculta una vista a un determinado nivel de usuario
+	*/
+	public static function accesoViewEstricto(array $level, $noAdmin = false){
+		if (!Session::get('autenticado')){
+			return false;
+		}
+
+		if ($noAdmin == false){
+			if (Session::get('level') == 'admin'){
+				return true;
+			}
+		}
+
+		if (count($level)){
+			if (in_array(Session::get('level'), $level)){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Compara el tiempo de la Sesión del usuario
+	*/ 
+	public static function tiempo(){
+		if (!Session::get('time') || !defined('SESSION_TIME')){
+			throw new Exception("No se ha definido el tiempo de sesión");
+		}
+
+		# Si establecemos el tiempo de sesión en 0, la aplicación va a asumir que es un tiempo de sesión indefinido
+		if (SESSION_TIME == 0){
+			return;
+		}
+
+		# Si la resta del tiempo actual, con el definido en la sesión del usuario es mayor al tiempo se sesión de la aplicación
+		if (time() - Session::get('time') > (SESSION_TIME * 60)){
+			Session::destroy();
+			header('location: ' . BASE_URL . 'error/access/8080');
+		} else {
+			Session::set('time', time());
 		}
 	}
 

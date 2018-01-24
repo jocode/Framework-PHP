@@ -8,6 +8,8 @@ define('BASE_URL', 'http://localhost/Framework-PHP/');
 define('APP_NAME', 'Framework');
 define('APP_SLOGAN', 'Framework PHP MVC');
 define('APP_COMPANY', 'Johan Mosquera');
+# Define el tiempo de la sesión en la aplicación, lo recibe el minutos
+define('SESSION_TIME', 1);
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

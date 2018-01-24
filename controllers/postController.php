@@ -20,7 +20,8 @@ class postController extends Controller {
 
 	public function nuevo(){
 
-		Session::acceso('especial');
+		// Este método sólo deja pasar los grupos de usuarios que indiquemos en el arreglo
+		Session::accesoEstricto(array('usuario'), true);
 
 		$this->_view->titulo = 'Nuevo Post';
 		$this->_view->setJs(array('nuevo'));
