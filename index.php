@@ -15,8 +15,9 @@ try {
 	require_once(APP_PATH . 'Registro.php');
 	require_once(APP_PATH . 'Database.php');
 	require_once(APP_PATH . 'Session.php');
+	require_once(APP_PATH . 'Hash.php');
 
-# Inicializamos las variables de sesion
+	# Inicializamos las variables de sesion
 	Session::init();
 
 	Bootstrap::run(new Request());
