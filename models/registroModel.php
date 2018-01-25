@@ -15,13 +15,10 @@ class registroModel extends Model {
 	*/
 	public function verificarUsuario($usuario){
 		$id = $this->_db->query(
-				"SELECT id FROM usuario WHERE usuario = '$usuario'"
+				"SELECT id, codigo FROM usuario WHERE usuario = '$usuario'"
 			);
 
-		if ($id->fetch()){
-			return true;
-		}
-		return false;
+		return $id->fetch();		
 	}
 
 	/**
@@ -39,15 +36,39 @@ class registroModel extends Model {
 	}
 
 	public function registrarUsuario($nombre, $usuario, $password, $email){
+
+		# La función rand() genero un número aleatorio entre los números min y max pasados por parámetro
+		$random = rand(000000000, 999999999);
+
 		$this->_db->prepare(
-			"INSERT INTO usuario VALUES (null, :nombre, :usuario, :pass, :email, now(), '".USER_DEFAULT."', 1)"
+			"INSERT INTO usuario VALUES (null, :nombre, :usuario, :pass, :email, now(), :codigo, '".USER_DEFAULT."', 0)"
 			)
 			->execute(array(
 				':nombre' => $nombre,
 				':usuario' => $usuario,
 				':pass' => Hash::getHast('sha1', $password, HASH_KEY),
-				':email' => $email
+				':email' => $email,
+				':codigo' => $random,
 			));
+	}
+
+	/**
+	* Nos devuelve la información del usuario, cuando se consulte po id y código de usuario. Se va utilizar para la validación en la activación de la cuenta
+	*/
+	public function getUsuario($id, $codigo){
+		$usuario = $this->_db->query(
+				"SELECT * FROM usuario WHERE id = $id and codigo = '$codigo'"
+			);
+		return $usuario->fetch();
+	}
+
+	/**
+	* Método para activar Usuario
+	*/
+	public function activarUsuario($id, $codigo){
+		$this->_db->query(
+				"UPDATE usuario SET estado = 1 WHERE id = $id and codigo = '$codigo'"
+			);
 	}
 
 } 
