@@ -11,9 +11,13 @@ class postController extends Controller {
 		$this->_post = $this->loadModel('post');
 	}
 
-	public function index(){
+	public function index($pagina = false){
+
 		# Agregar los datos del modelo en la variable posts
-		$this->_view->posts = $this->_post->getPosts();
+		$this->getLibrary('Paginador');
+		$paginador = new Paginador();
+		$this->_view->posts = $paginador->paginar($this->_post->getPosts(), $pagina);
+		$this->_view->paginacion = $paginador->getView('prueba', 'post/index');
 		$this->_view->titulo = 'Post';
 		$this->_view->renderizar('index', 'post');
 	}
