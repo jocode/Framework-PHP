@@ -11,8 +11,8 @@ class indexController extends Controller {
 	public function index(){
 		$post = $this->loadModel('post');
 
-		$this->_view->posts = $post->getPosts();
-		$this->_view->titulo = 'Portada';
+		# Para pasar parámetros a las vistas con Smarty, usamos el método assign
+		$this->_view->assign('titulo', 'Portada');
 		$this->_view->renderizar('index');
 	}
 

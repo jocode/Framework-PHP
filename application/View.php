@@ -3,12 +3,16 @@
 /**
 * A diferencia de los controladores, que deben extender de un controlador principal, en las vistas no es necesario
 */
-class View {
+
+require_once ROOT . 'libs' . DS . 'smarty' . DS . 'libs' . DS . 'Smarty.class.php';
+
+class View extends Smarty {
 	
 	private $_controlador;
 	private $_js;
 
 	public function __construct(Request $peticion){
+		parent::__construct();
 		$this->_controlador = $peticion->getControllador();
 		$this->_js = array();
 	}
@@ -20,7 +24,17 @@ class View {
 	* @param $item item del enlace, para dejarlo seleccionado
 	*/
 	public function renderizar($vista, $item = false){
-		$rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
+
+		# Definimos el directorio del template
+		$this->template_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS ;
+		#Definimos el directorio de configuraciones, para guardar los archivos de configuración de las plantillas
+		$this->config_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'configs' . DS;
+		# Definimos los directorio temporales
+		$this->cache_dir = ROOT . 'tmp' . DS . 'cache' . DS;
+		$this->compile_dir = ROOT . 'tmp' . DS . 'template' . DS;
+
+
+		$rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.tpl';
 
 		if (is_readable($rutaView)){
 
@@ -72,19 +86,27 @@ class View {
 				'ruta_img' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/img/',
 				'ruta_js' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/js/',
 				'menu' => $menu,
+				'item' => $item,
 				'js' => $js,
+				'configs' => array (
+					'app_name' => APP_NAME,
+					'app_slogan' => APP_SLOGAN,
+					'app_company' => APP_COMPANY,
+				),
+				'root' => BASE_URL
 			);
 
-			# Incluimos el header de views/layouts/default/
-			require_once(ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'header.php');
-			# Incluimos la vista del contolador
-			require_once($rutaView);
-			# Incluimos el footer de views/layouts/default/
-			require_once(ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'footer.php');
+			# Asignamos la vista al template de Smarty
+			$this->assign('_contenido', $rutaView);
+
+			# Asignamos parámetros al layout
+			$this->assign('_layoutParams', $_layoutParams);
+			# LLamamos el template
+			$this->display('template.tpl');
 		} else {
 			throw new Exception("No se encontró la vista $vista");
-			
 		}
+
 	}
 
 
