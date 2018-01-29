@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<title>{$titulo|default: "Titulo"}</title>
-	<script type="text/javascript" src="{$_layoutParams.root}'public/js/jquery.min.js'"></script>
-	<script type="text/javascript" src="{$_layoutParams.root}'public/js/jquery.validate.min.js';"></script>
+	<script type="text/javascript" src="{$_layoutParams.root}public/js/jquery.min.js"></script>
+	<script type="text/javascript" src="{$_layoutParams.root}public/js/jquery.validate.min.js"></script>
 </head>
 <body>
 	<div id="main">

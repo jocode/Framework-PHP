@@ -38,7 +38,7 @@ abstract class Controller {
 	* Método para cargar librerías
 	*/ 
 	protected function getLibrary($library){
-		$rutaLibrary = ROOT . 'libs' . DS . $library . DS . $library . '.php';
+		$rutaLibrary = ROOT . 'libs' . DS . $library . '.php';
 
 		if (is_readable($rutaLibrary)){
 			require_once($rutaLibrary);

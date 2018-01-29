@@ -23,49 +23,49 @@ class registroController extends Controller {
 			$this->redirect();
 		}
 
-		$this->_view->titulo = 'Registro';
+		$this->_view->assign('titulo','Registro');
 
 		if ($this->getInt('enviar')==1){
-			$this->_view->datos = $_POST;
+			$this->_view->assign('datos', $_POST);
 
 			if (!$_POST['nombre']){
-				$this->_view->_error = 'Debe introducir su nombre';
+				$this->_view->assign('_error', 'Debe introducir su nombre');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if (!$this->getAlphaNum('usuario')){
-				$this->_view->_error = 'Debe introducir su Usuario';
+				$this->_view->assign('_error', 'Debe introducir su Usuario');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if ($this->_registro->verificarUsuario($this->getAlphaNum('usuario'))){
-				$this->_view->_error = 'El usuario '.$this->getAlphaNum('usuario'). ' ya existe';
+				$this->_view->assign('_error', 'El usuario '.$this->getAlphaNum('usuario'). ' ya existe');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if ($this->_registro->verificarEmail($this->getPostParam('email'))){
-				$this->_view->_error = 'El email ya está registrado.';
+				$this->_view->assign('_error', 'El email ya está registrado.');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if (!$this->validarEmail($this->getPostParam('email'))){
-				$this->_view->_error = 'La dirección de email es inválida';
+				$this->_view->assign('_error', 'La dirección de email es inválida');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if (!$this->getPostParam('pass')){
-				$this->_view->_error = 'Debe introducir la contraseña.';
+				$this->_view->assign('_error', 'Debe introducir la contraseña.');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
 
 			if ($this->getPostParam('pass') != $this->getPostParam('confirmar')){
-				$this->_view->_error = 'Las contraseñas no coinciden.';
+				$this->_view->assign('_error', 'Las contraseñas no coinciden.');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			}
@@ -82,7 +82,7 @@ class registroController extends Controller {
 			$usuario = $this->_registro->verificarUsuario($this->getAlphaNum('usuario'));
 
 			if (!$usuario){
-				$this->_view->_error = 'Error al registrar el usuario.';
+				$this->_view->assign('_error', 'Error al registrar el usuario.');
 				$this->_view->renderizar('index', 'registro');
 				exit;
 			} 
@@ -106,8 +106,8 @@ class registroController extends Controller {
 				echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
 			}
 
-			$this->_view->datos = false;
-			$this->_view->_error = 'Registro completado, revise su email para activar su cuenta.';
+			$this->_view->assign('datos', false);
+			$this->_view->assign('_error', 'Registro completado, revise su email para activar su cuenta.');
 
 		}
 
@@ -120,7 +120,7 @@ class registroController extends Controller {
 	public function activar($id, $codigo){
 
 		if (!$this->filtrarInt($id) || !$this->filtrarInt($codigo)){
-			$this->_view->_error = 'Esta cuenta no existe.';
+			$this->_view->assign('_error', 'Esta cuenta no existe.');
 			$this->_view->renderizar('activar', 'registro');
 			exit;
 		}
@@ -131,14 +131,14 @@ class registroController extends Controller {
 		);
 
 		if (!$row){
-			$this->_view->_error = 'Esta cuenta no existe.';
+			$this->_view->assign('_error', 'Esta cuenta no existe.');
 			$this->_view->renderizar('activar', 'registro');
 			exit;
 		}
 
 		# Verificamos que la cuenta ya esté activada
 		if ($row['estado'] == 1){
-			$this->_view->_error = 'Esta cuenta ya ha sido activada.';
+			$this->_view->assign('_error', 'Esta cuenta ya ha sido activada.');
 			$this->_view->renderizar('activar', 'registro');
 			exit;
 		}
@@ -154,12 +154,12 @@ class registroController extends Controller {
 		);
 
 		if ($row['estado'] == 0){
-			$this->_view->_error = 'Error al activar la cuenta, por favor intente más tarde.';
+			$this->_view->assign('_error', 'Error al activar la cuenta, por favor intente más tarde.');
 			$this->_view->renderizar('activar', 'registro');
 			exit;
 		}
 
-		$this->_view->_mensaje = 'Su cuenta ha sido Activada';
+		$this->_view->assign('_mensaje', 'Su cuenta ha sido Activada');
 		$this->_view->renderizar('activar', 'registro');
 
 	}

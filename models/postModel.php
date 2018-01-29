@@ -16,12 +16,13 @@ class postModel extends Model {
 	}
 
 	# Este método guardará los post en la base de datos
-	public function insertar($titulo, $cuerpo){
-		$this->_db->prepare("INSERT INTO post VALUES (null, :titulo, :cuerpo)")
+	public function insertar($titulo, $cuerpo, $imagen){
+		$this->_db->prepare("INSERT INTO post VALUES (null, :titulo, :cuerpo, :imagen)")
 			->execute(
 				array(
 					':titulo' => $titulo,
-					':cuerpo' => $cuerpo
+					':cuerpo' => $cuerpo,
+					':imagen' => $imagen
 				)
 			);
 	}

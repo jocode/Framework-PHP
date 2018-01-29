@@ -54,6 +54,11 @@ class View extends Smarty {
 					'titulo' => 'Post',
 					'enlace' => BASE_URL . 'post',
 				),
+				array(
+					'id' => 'ajax',
+					'titulo' => 'Ajax',
+					'enlace' => BASE_URL . 'ajax',
+				),
 			);
 
 			if (Session::get('autenticado')){

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-01-27 00:56:37
+/* Smarty version 3.1.30, created on 2018-01-27 22:44:49
   from "C:\xampp\htdocs\Framework-PHP\views\layout\default\template.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5a6bc035d66822_59325566',
+  'unifunc' => 'content_5a6cf2d1d31642_80526506',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ac5717a215f718d3f944bdc0d82b0d620f5f6316' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\layout\\default\\template.tpl',
-      1 => 1517010995,
+      1 => 1517089487,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5a6bc035d66822_59325566 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a6cf2d1d31642_80526506 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,11 +30,11 @@ function content_5a6bc035d66822_59325566 (Smarty_Internal_Template $_smarty_tpl)
 </title>
 	<?php echo '<script'; ?>
  type="text/javascript" src="<?php echo $_smarty_tpl->tpl_vars['_layoutParams']->value['root'];?>
-'public/js/jquery.min.js'"><?php echo '</script'; ?>
+public/js/jquery.min.js"><?php echo '</script'; ?>
 >
 	<?php echo '<script'; ?>
  type="text/javascript" src="<?php echo $_smarty_tpl->tpl_vars['_layoutParams']->value['root'];?>
-'public/js/jquery.validate.min.js';"><?php echo '</script'; ?>
+public/js/jquery.validate.min.js"><?php echo '</script'; ?>
 >
 </head>
 <body>

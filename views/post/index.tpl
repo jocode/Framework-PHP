@@ -8,6 +8,13 @@
 				<td>{$post.id}</td>
 				<td>{$post.titulo}</td>
 				<td>{$post.cuerpo}</td>
+				<td>
+					{if isset($post.imagen)}
+					<a href="{$_layoutParams.root}public/img/post/{$post.imagen}">
+						<img src="{$_layoutParams.root}public/img/post/thumb/thumb_{$post.imagen}">
+					</a>
+					{/if}
+				</td>
 				<td><a href="{$_layoutParams.root}post/editar/{$post.id}">Editar</a></td>
 				<td><a href="{$_layoutParams.root}post/eliminar/{$post.id}">Eliminar</a></td>
 			</tr>

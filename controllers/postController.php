@@ -14,7 +14,7 @@ class postController extends Controller {
 	public function index($pagina = false){
 
 		# Agregar los datos del modelo en la variable posts
-		$this->getLibrary('Paginador');
+		$this->getLibrary('Paginador'.DS.'paginador');
 		$paginador = new Paginador();
 		$this->_view->assign('posts', $paginador->paginar($this->_post->getPosts(), $pagina));
 		$this->_view->assign('paginacion', $paginador->getView('prueba', 'post/index'));
@@ -25,28 +25,55 @@ class postController extends Controller {
 	public function nuevo(){
 
 		// Este método sólo deja pasar los grupos de usuarios que indiquemos en el arreglo
-		Session::accesoEstricto(array('usuario'), true);
+		Session::acceso('admin');
 
-		$this->_view->titulo = 'Nuevo Post';
+		$this->_view->assign('titulo', 'Nuevo Post');
 		$this->_view->setJs(array('nuevo'));
 
 		if ($this->getInt('guardar') == 1){
 
-			$this->_view->datos = $_POST;
+			$this->_view->assign('datos', $_POST);
 
 			if (!$this->getTexto('titulo')){
-				$this->_view->_error = 'Debes introducir el título del post';
+				$this->_view->assign('_error','Debes introducir el título del post');
 				$this->_view->renderizar('nuevo', 'post');
 				exit;
 			}
 			if (!$this->getTexto('cuerpo')){
-				$this->_view->_error = 'Debes introducir el cuerpo del post';
+				$this->_view->assign('_error', 'Debes introducir el cuerpo del post');
 				$this->_view->renderizar('nuevo', 'post');
 				exit;
 			}
+
+			$imagen = '';
+			if (isset($_FILES['imagen']['name'])){
+				$this->getLibrary('upload' . DS . 'class.upload');
+				$ruta = ROOT . 'public' . DS . 'img' . DS . 'POST' . DS;
+				$upload = new upload($_FILES['imagen'], 'es_ES');
+				$upload->allowed = array('image/*'); # Acepta todo tipo de imagenes
+				$upload->file_new_name_body = 'upl_' . uniqid();
+				$upload->process($ruta);
+
+				if ($upload->processed){
+					$imagen = $upload->file_dst_name;
+					$thumb = new upload($upload->file_dst_pathname);
+					$thumb->image_resize = true; # Habilita la redimensión
+					$thumb->image_x = 100;
+					$thumb->image_y = 70;
+					# Agrega el prefijo en la imagen de miniatura
+					$thumb->file_name_body_pre = 'thumb_';
+					$thumb->process($ruta . 'thumb' . DS);
+				} else {
+					$this->_view->assign('_error', $upload->error);
+					$this->_view->renderizar('nuevo', 'post');
+					exit;
+				}
+			}
+
 			$this->_post->insertar(
 				$this->getPostParam('titulo'), 
-				$this->getPostParam('cuerpo')
+				$this->getPostParam('cuerpo'),
+				$imagen
 			);
 			# Redireccionar al usuario
 			$this->redirect('post');
@@ -72,20 +99,20 @@ class postController extends Controller {
 			$this->redirect('post');
 		}
 
-		$this->_view->titulo = 'Editar Post';
+		$this->_view->assign('titulo', 'Editar Post');
 		$this->_view->setJs(array('nuevo'));
 
 		if ($this->getInt('guardar') == 1){
 
-			$this->_view->datos = $_POST;
+			$this->_view->assign('datos', $_POST);
 
 			if (!$this->getTexto('titulo')){
-				$this->_view->_error = 'Debes introducir el título del post';
+				$this->_view->assign('_error', 'Debes introducir el título del post');
 				$this->_view->renderizar('editar', 'post');
 				exit;
 			}
 			if (!$this->getTexto('cuerpo')){
-				$this->_view->_error = 'Debes introducir el cuerpo del post';
+				$this->_view->assign('_error', 'Debes introducir el cuerpo del post');
 				$this->_view->renderizar('editar', 'post');
 				exit;
 			}
@@ -98,7 +125,7 @@ class postController extends Controller {
 			$this->redirect('post');
 		}
 
-		$this->_view->datos = $post;
+		$this->_view->assign('datos', $post);
 		$this->_view->renderizar('editar', 'post');
 
 	}

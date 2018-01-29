@@ -7,7 +7,7 @@ class pdfController extends Controller {
 
 	public function __construct(){
 		parent::__construct();
-		$this->getLibrary('fpdf');
+		$this->getLibrary('fpdf'.DS.'fpdf');
 		$this->_pdf = new FPDF();
 	}
 
