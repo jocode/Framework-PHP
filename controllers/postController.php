@@ -23,8 +23,7 @@ class postController extends Controller {
 	}
 
 	public function nuevo(){
-
-		// Este método sólo deja pasar los grupos de usuarios que indiquemos en el arreglo
+		$this->_acl->acceso('nuevo_post');
 		Session::acceso('admin');
 
 		$this->_view->assign('titulo', 'Nuevo Post');

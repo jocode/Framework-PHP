@@ -9,7 +9,8 @@ class indexController extends Controller {
 	}
 
 	public function index(){
-		$post = $this->loadModel('post');
+		#echo "<pre>";
+		#print_r($this->_acl->getPermisos()); 
 
 		# Para pasar parámetros a las vistas con Smarty, usamos el método assign
 		$this->_view->assign('titulo', 'Portada');

@@ -25,8 +25,6 @@
 	<p><strong>No hay Posts...</strong></p>
 {/if}
 
-{if isset($paginacion)} {$paginacion} {/if}
+{$paginacion|default:''}
 
-{if (Session::accesoViewEstricto(array('usuario')))}
-	<p><a href="{$_layoutParams.root}post/nuevo">Agregar Post</a></p>
-{/if}
+<p><a href="{$_layoutParams.root}post/nuevo">Agregar Post</a></p>

@@ -10,11 +10,13 @@ class View extends Smarty {
 	
 	private $_controlador;
 	private $_js;
+	private $_acl;
 
-	public function __construct(Request $peticion){
+	public function __construct(Request $peticion, ACL $_acl){
 		parent::__construct();
 		$this->_controlador = $peticion->getControllador();
 		$this->_js = array();
+		$this->_acl = $_acl;
 	}
 
 	/**
@@ -106,6 +108,8 @@ class View extends Smarty {
 
 			# Asignamos parámetros al layout
 			$this->assign('_layoutParams', $_layoutParams);
+			# Le pasamos la lista de control de acceso
+			$this->assign('_acl', $this->_acl);
 			# LLamamos el template
 			$this->display('template.tpl');
 		} else {

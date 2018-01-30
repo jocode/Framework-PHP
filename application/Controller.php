@@ -6,10 +6,12 @@
 abstract class Controller {
 
 	protected $_view;
+	protected $_acl;
 
 	# Con este método constructor, creamos una instancia de la clase View, y queda disponible para todos los controladores
 	public function __construct(){
-		$this->_view = new View(new Request);
+		$this->_acl = new ACL();
+		$this->_view = new View(new Request, $this->_acl);
 	}
 
 	/*Este método abstacto index, obliga a que todas las clases que hereden de Controller, implementen un método index por obligación.

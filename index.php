@@ -16,6 +16,7 @@ try {
 	require_once(APP_PATH . 'Database.php');
 	require_once(APP_PATH . 'Session.php');
 	require_once(APP_PATH . 'Hash.php');
+	require_once(APP_PATH . 'ACL.php');
 
 	# Inicializamos las variables de sesion
 	Session::init();
