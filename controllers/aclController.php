@@ -19,6 +19,7 @@ class aclController extends Controller {
 
 	public function roles(){
 		$this->_view->assign('titulo', 'Administración de Roles');
+		$this->_view->setJs(array('funciones'));
 		$this->_view->assign('roles', $this->_aclModel->getRoles());
 		$this->_view->renderizar('roles');
 	}
@@ -51,6 +52,7 @@ class aclController extends Controller {
 
 			for ($i = 0; $i < count($values); $i++){
 
+				# Verificamos que los primeros 5 caracteres sean igual a 'perm_'
 				if (substr($values[$i], 0, 5) == 'perm_'){
 
 					$permiso = (strlen($values[$i]) - 5);
@@ -77,7 +79,7 @@ class aclController extends Controller {
 			}
 
 			for ($i = 0; $i < count($eliminar); $i++){
-				$this->_aclModel->elimininarPermisoRole(
+				$this->_aclModel->eliminarPermisoRole(
 					$eliminar[$i]['role'],
 					$eliminar[$i]['permiso']
 				);
@@ -143,6 +145,13 @@ class aclController extends Controller {
 		}
 		$this->_view->assign('role', $role);
 		$this->_view->renderizar('editar_role', 'editar_role');
+	}
+
+	public function eliminar_role($id){
+		$rol = $this->_aclModel->getRole($id);
+		if (!$rol) { $this->redirect(); }
+		$this->_aclModel->eliminarRole($id);
+		$this->redirect('acl/roles');
 	}
 
 	public function permisos(){

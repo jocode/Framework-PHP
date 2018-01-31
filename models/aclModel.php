@@ -75,7 +75,7 @@ class aclModel extends Model {
 
 	}
 
-	public function elimininarPermisoRole($rol_id, $permiso_id){
+	public function eliminarPermisoRole($rol_id, $permiso_id){
 		$this->_db->query(
 			"DELETE FROM permiso_rol WHERE rol='$rol_id' AND permiso='$permiso_id' "
 		);
@@ -116,6 +116,12 @@ class aclModel extends Model {
 	public function updateRole($id, $role){
 		$this->_db->query("
 			UPDATE rol SET role = '$role' WHERE id_role = '$id'
+		");
+	}
+
+	public function eliminarRole($id){
+		$this->_db->query("
+			DELETE FROM rol WHERE id_role = '$id'
 		");
 	}
 

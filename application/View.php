@@ -65,6 +65,11 @@ class View extends Smarty {
 					'id' => 'acceso',
 					'titulo' => 'Listas de Acceso',
 					'enlace' => BASE_URL . 'acl'
+				),
+				array(
+					'id' => 'usuarios',
+					'titulo' => 'Permisos de Usuarios',
+					'enlace' => BASE_URL . 'usuarios'
 				)
 
 			);

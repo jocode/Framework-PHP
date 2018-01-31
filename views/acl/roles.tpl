@@ -7,7 +7,7 @@
  			<th>ID</th>
  			<th>Role</th>
  			<th>Permisos</th>
- 			<th>Editar</th>
+ 			<th colspan="2">Acciones</th>
  		</tr>
  	</thead>
  	<tbody>
@@ -21,6 +21,9 @@
  				<td>
  					<a href="{$_layoutParams.root}acl/editar_role/{$rol.id_role}">Editar</a>
  				</td>
+ 				<td>
+					<a href="javascript:void(0);" onclick="eliminar('{$_layoutParams.root}acl/eliminar_role/{$rol.id_role}');">Eliminar</a>
+				</td>
  			</tr>
  		{/foreach}
  	</tbody>

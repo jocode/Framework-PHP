@@ -25,7 +25,7 @@ class ACL {
 			echo $e->getMessage();
 		}
 		$this->_role = $this->_getRole();
-		$this->_permisos = $this->_getPermisosRole();
+		$this->_permisos = $this->getPermisosRole();
 		$this->_compilarAcl();
 	}
 
@@ -71,7 +71,7 @@ class ACL {
 	/**
 	* Nos devolverá los permisos del rol, ya procesados
 	*/
-	private function _getPermisosRole(){
+	public function getPermisosRole(){
 		$permisos = $this->_db->query(
 			"SELECT * FROM permiso_rol WHERE rol='$this->_role'"
 		);
@@ -181,10 +181,14 @@ class ACL {
 	* Este método se usará en los controladores, donde le pasamos el key del permiso, y nos consultará si está habilitado para ese usuario
 	*/
 	public function acceso($key, $error_code = false){
+
 		if ($this->permiso($key)){
+			// Para definir el tiempo de la sesión agregamos la siguiente línea
+			# Session::tiempo();
 			return;
 		}
 		header('Location: '. BASE_URL . 'error/access/5050');
+		exit;
 	}
 }
 
