@@ -61,6 +61,12 @@ class View extends Smarty {
 					'titulo' => 'Ajax',
 					'enlace' => BASE_URL . 'ajax',
 				),
+				array(
+					'id' => 'acceso',
+					'titulo' => 'Listas de Acceso',
+					'enlace' => BASE_URL . 'acl'
+				)
+
 			);
 
 			if (Session::get('autenticado')){

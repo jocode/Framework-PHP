@@ -1,4 +1,5 @@
 <?php 
+#ini_set('display_errors', 1);
 
 define('DS', DIRECTORY_SEPARATOR); // Declaramos este separador de directorios, porque en sistemas operativos son diferentes. Por ejemplo en Windows (\) y Linux (/)
 define('ROOT', realpath(dirname(__FILE__)) . DS); // Ruta raíz de la aplicación

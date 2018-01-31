@@ -45,7 +45,7 @@ class ACL {
 	*/
 	private function _getRole(){
 		$role = $this->_db->query(
-			"SELECT role FROM usuario WHERE id = $this->_id"
+			"SELECT role FROM usuario WHERE id = '$this->_id'"
 		);
 
 		$role = $role->fetch();
@@ -57,14 +57,12 @@ class ACL {
 	*/
 	private function _getPermisosRoleId(){
 		$permisos = $this->_db->query(
-			"SELECT permiso FROM permiso_rol WHERE rol=$this->_role"
+			"SELECT permiso FROM permiso_rol WHERE rol='$this->_role'"
 		);
 
 		$permiso = array();
-		if ($permisos){
-			while ($registro = $permisos->fetch(PDO::FETCH_ASSOC)){
-				$permiso[] = $registro['permiso'];
-			}
+		while ($registro = $permisos->fetch(PDO::FETCH_ASSOC)){
+			$permiso[] = $registro['permiso'];
 		}
 
 		return $permiso;
@@ -75,28 +73,26 @@ class ACL {
 	*/
 	private function _getPermisosRole(){
 		$permisos = $this->_db->query(
-			"SELECT * FROM permiso_rol WHERE rol=$this->_role"
+			"SELECT * FROM permiso_rol WHERE rol='$this->_role'"
 		);
 
 		$data = array();
 		
-		if ($permisos){
-			while ($permiso = $permisos->fetch(PDO::FETCH_ASSOC)){
-				$key =  $this->_getPermisoKey($permiso['permiso']);
-				if ($key == ''){ continue;}
-				if ($permiso['valor'] == 1){
-					$valor = true;
-				} else {
-					$valor = false;
-				}
-				$data[$key] = array(
-					'key'=> $key,
-					'permiso' => $this->_getPermisoNombre($permiso['permiso']),
-					'valor'=> $valor, 
-					'heredado'=>true,  
-					'id'=>$permiso['permiso']
-				);
+		while ($permiso = $permisos->fetch(PDO::FETCH_ASSOC)){
+			$key =  $this->_getPermisoKey($permiso['permiso']);
+			if ($key == ''){ continue;}
+			if ($permiso['valor'] == 1){
+				$valor = true;
+			} else {
+				$valor = false;
 			}
+			$data[$key] = array(
+				'key'=> $key,
+				'permiso' => $this->_getPermisoNombre($permiso['permiso']),
+				'valor'=> $valor, 
+				'heredado'=>true,  
+				'id'=>$permiso['permiso']
+			);
 		}
 
 		return $data;
@@ -108,7 +104,7 @@ class ACL {
 	private function _getPermisoKey($id_permiso){
 		$id_permiso = (int) $id_permiso;
 		$key = $this->_db->query(
-			"SELECT `key` FROM permiso WHERE id_permiso = $id_permiso"
+			"SELECT `key` FROM permiso WHERE id_permiso = '$id_permiso'"
 		);
 
 		$key = $key->fetch();
@@ -121,7 +117,7 @@ class ACL {
 	private function _getPermisoNombre($id_permiso){
 		$id_permiso = (int) $id_permiso;
 		$permiso = $this->_db->query(
-			"SELECT permiso FROM permiso WHERE id_permiso = $id_permiso"
+			"SELECT permiso FROM permiso WHERE id_permiso = '$id_permiso'"
 		);
 
 		$permiso = $permiso->fetch();
@@ -134,28 +130,27 @@ class ACL {
 	private function _getPermisosUsuario(){
 		$permisos_rol = $this->_getPermisosRoleId();
 		$permisos = $this->_db->query(
-			"SELECT * FROM permiso_usuario WHERE usuario = {$this->_id} AND permiso IN (".implode(',', $permisos_rol).")"
+			"SELECT * FROM permiso_usuario WHERE usuario = '$this->_id' AND permiso IN (".implode(',', $permisos_rol).")"
 		);
-		# $permisos = $permisos->fetchAll(PDO::FETCH_ASSOC);
 
 		$data = array();
 		if ($permisos){
 			while ($permiso = $permisos->fetch(PDO::FETCH_ASSOC)){
-				$key = $this->_getPermisoKey($permiso['permiso']);
-				if ($key == ''){ continue;}
-				if ($permiso['valor'] == 1){
-					$valor = true;
-				} else {
-					$valor = false;
-				}
-				$data[$key] = array(
-					'key'=> $key,
-					'permiso' => $this->_getPermisoNombre($permiso['permiso']),
-					'valor'=> $valor, 
-					'heredado'=>false,  
-					'id'=>$permiso['permiso']
-				);
+			$key = $this->_getPermisoKey($permiso['permiso']);
+			if ($key == ''){ continue;}
+			if ($permiso['valor'] == 1){
+				$valor = true;
+			} else {
+				$valor = false;
 			}
+			$data[$key] = array(
+				'key'=> $key,
+				'permiso' => $this->_getPermisoNombre($permiso['permiso']),
+				'valor'=> $valor, 
+				'heredado'=>false,  
+				'id'=>$permiso['permiso']
+			);
+		}
 		}
 
 		return $data;
