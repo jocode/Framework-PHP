@@ -22,7 +22,7 @@ class Request {
 			$url = array_filter($url);
 
 			# Módulos de la aplicación
-			$this->_modules = array();
+			$this->_modules = array('usuarios');
 
 			$this->_modulo = strtolower(array_shift($url));
 			if (!$this->_modulo){
@@ -76,7 +76,7 @@ class Request {
 	/**
 	* Devuelve el controlador
 	*/
-	public function getControllador(){
+	public function getControlador(){
 		return $this->_controlador;
 	}
 

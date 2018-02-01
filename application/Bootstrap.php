@@ -7,7 +7,7 @@ class Bootstrap {
 
 	public static function run(Request $peticion){
 		$modulo = $peticion->getModulo();
-		$controller = $peticion->getControllador() . 'Controller';
+		$controller = $peticion->getControlador() . 'Controller';
 		$metodo = $peticion->getMetodo();
 		$args = $peticion->getArgs();
 

@@ -7,11 +7,13 @@ abstract class Controller {
 
 	protected $_view;
 	protected $_acl;
+	protected $_request;
 
 	# Con este método constructor, creamos una instancia de la clase View, y queda disponible para todos los controladores
 	public function __construct(){
 		$this->_acl = new ACL();
-		$this->_view = new View(new Request, $this->_acl);
+		$this->_request = new Request();
+		$this->_view = new View($this->_request, $this->_acl);
 	}
 
 	/*Este método abstacto index, obliga a que todas las clases que hereden de Controller, implementen un método index por obligación.
@@ -22,9 +24,20 @@ abstract class Controller {
 	/**
 	* Este método crea una instancia del Modelo. Verifica si el modelo existe, entonces lo importa y devuelve una objeto de ese modelo.
 	*/
-	protected function loadModel($modelo){
+	protected function loadModel($modelo, $modulo = false){
 		$modelo = $modelo . 'Model';
 		$rutaModelo = ROOT . 'models' . DS . $modelo . '.php';
+
+		# Verificamos si estamos trabajando en base a un módulo o a un controlador.
+		if (!$modulo){
+			$modulo = $this->_request->getModulo();
+		}
+
+		if ($modulo){
+			if ($modulo != 'default'){
+				$rutaModelo = ROOT . 'modules' . DS. $modulo .  DS . 'models' . DS . $modelo . '.php';
+			}
+		}
 
 		if (is_readable($rutaModelo)){
 			require_once($rutaModelo);

@@ -24,8 +24,7 @@ class postController extends Controller {
 
 	public function nuevo(){
 		$this->_acl->acceso('nuevo_post');
-		Session::acceso('admin');
-
+		
 		$this->_view->assign('titulo', 'Nuevo Post');
 		$this->_view->setJs(array('nuevo'));
 

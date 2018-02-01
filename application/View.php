@@ -8,15 +8,27 @@ require_once ROOT . 'libs' . DS . 'smarty' . DS . 'libs' . DS . 'Smarty.class.ph
 
 class View extends Smarty {
 	
-	private $_controlador;
+	private $_request;
 	private $_js;
 	private $_acl;
+	private$_rutas;
 
 	public function __construct(Request $peticion, ACL $_acl){
 		parent::__construct();
-		$this->_controlador = $peticion->getControllador();
+		$this->_request = $peticion;
 		$this->_js = array();
 		$this->_acl = $_acl;
+		$this->_rutas = array();
+
+		$modulo = $this->_request->getModulo();
+		$controlador = $this->_request->getControlador();
+		if ($modulo){
+			$this->_rutas['view'] = ROOT . 'modules' . DS . $modulo . DS . 'views' . DS .  $controlador . DS;
+			$this->_rutas['js'] = BASE_URL . 'modules/'. $modulo . '/views/'.$controlador.'/js/';
+		} else {
+			$this->_rutas['view'] = ROOT . 'views' . DS .  $controlador . DS;
+			$this->_rutas['js'] = BASE_URL .'views/'.$controlador.'/js/';
+		}
 	}
 
 	/**
@@ -36,7 +48,7 @@ class View extends Smarty {
 		$this->compile_dir = ROOT . 'tmp' . DS . 'template' . DS;
 
 
-		$rutaView = ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.tpl';
+		$rutaView = $this->_rutas['view'] . $vista . '.tpl';
 
 		if (is_readable($rutaView)){
 
@@ -133,7 +145,7 @@ class View extends Smarty {
 	public function setJs(array $js){
 		if (is_array($js) && count($js)){
 			for ($i = 0; $i < count($js); $i++){
-				$this->_js[] = BASE_URL . 'views/' . $this->_controlador . '/js/'.$js[$i] . '.js'; 
+				$this->_js[] = $this->_rutas['js'] . $js[$i] . '.js'; 
 			}
 		} else {
 			throw new Exception("Error al cargar JS en $this->_controlador");
