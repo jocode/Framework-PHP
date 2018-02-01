@@ -6,11 +6,23 @@
 class Bootstrap {
 
 	public static function run(Request $peticion){
+		$modulo = $peticion->getModulo();
 		$controller = $peticion->getControllador() . 'Controller';
-		$rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
-
 		$metodo = $peticion->getMetodo();
 		$args = $peticion->getArgs();
+
+		if ($modulo){
+			# Revisa si hay un controlador base, para ese módulo
+			$rutaModulo = ROOT . 'controllers' . DS . $modulo.'Controller.php';
+			if (is_readable($rutaModulo)){
+				require_once $rutaModulo;
+				$rutaControlador = ROOT . 'modules' . DS . $modulo . DS . 'controllers' . DS . $controller . '.php';
+			} else {
+				throw new Exception("Error de ruta de Módulo, $modulo");
+			}
+		} else {
+			$rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
+		}
 
 		// Verificamos si el archivo existe y si es legible
 		if (is_readable($rutaControlador)){
