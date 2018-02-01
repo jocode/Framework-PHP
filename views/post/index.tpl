@@ -2,7 +2,16 @@
 
 {if (isset($posts) && count($posts))}
 
-	<table border="1">
+	<table class="table table-bordered">
+		<thead>
+			<tr class="text-center">
+				<th>ID</th>
+				<th>Título</th>
+				<th>Contenido</th>
+				<th>Imágen</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
 		{foreach from=$posts item=post}
 			<tr>
 				<td>{$post.id}</td>
@@ -15,8 +24,8 @@
 					</a>
 					{/if}
 				</td>
-				<td><a href="{$_layoutParams.root}post/editar/{$post.id}">Editar</a></td>
-				<td><a href="{$_layoutParams.root}post/eliminar/{$post.id}">Eliminar</a></td>
+				<td><a class="btn btn-warning btn-sm" href="{$_layoutParams.root}post/editar/{$post.id}">Editar</a>
+				<a class="btn btn-danger btn-sm" href="{$_layoutParams.root}post/eliminar/{$post.id}">Eliminar</a></td>
 			</tr>
 		{/foreach}
 	</table>
@@ -27,4 +36,4 @@
 
 {$paginacion|default:''}
 
-<p><a href="{$_layoutParams.root}post/nuevo">Agregar Post</a></p>
+<p><a class="btn btn-success" href="{$_layoutParams.root}post/nuevo">Agregar Post</a></p>

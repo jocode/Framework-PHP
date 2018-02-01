@@ -14,7 +14,7 @@ class indexController extends Controller {
 
 		# Para pasar parámetros a las vistas con Smarty, usamos el método assign
 		$this->_view->assign('titulo', 'Portada');
-		$this->_view->renderizar('index');
+		$this->_view->renderizar('index', 'index');
 	}
 
 }

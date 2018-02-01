@@ -13,7 +13,7 @@ class Paginador {
 	/**
 	* Este método permite paginar registros, de acuerdo a una consulta que se pase
 	*/
-	public function paginar($query, $pagina = false, $limite = false, $paginas = 10){
+	public function paginar($query, $pagina = false, $limite = false, $link_show = 10){
 
 		if ($limite && is_numeric($limite)){
 			$limite = $limite;
@@ -57,7 +57,7 @@ class Paginador {
 		}
 
 		$this->_paginacion = $paginacion;
-		$this->_rangoPaginacion($paginas);
+		$this->_rangoPaginacion($link_show);
 
 		return $this->_datos;
 	}

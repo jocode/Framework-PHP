@@ -1,8 +1,8 @@
 <h2>Permisos</h2>
 
-<table>
-	<thead>
-		<tr>
+<table class="table table-bordered">
+	<thead class="table table-bordered">
+		<tr class="text-center">
 			<th>Id</th>
 			<th>Permiso</th>
 			<th>Key</th>
@@ -26,6 +26,4 @@
 	</tbody>
 </table>
 
-<p>
-	<a href="{$_layoutParams.root}acl/agregar_permiso">Agregar</a>
-</p>
+<a class="btn btn-success" href="{$_layoutParams.root}acl/agregar_permiso">Agregar</a>

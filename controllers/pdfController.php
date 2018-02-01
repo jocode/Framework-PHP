@@ -12,7 +12,8 @@ class pdfController extends Controller {
 	}
 
 	public function index(){
-		echo "Pdf Controller";
+		$this->_view->assign('titulo', 'Pdf');
+		$this->_view->renderizar('index', 'pdf');
 	}
 
 	public function pdf1(){

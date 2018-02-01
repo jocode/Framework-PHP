@@ -14,7 +14,7 @@ class aclController extends Controller {
 	public function index(){
 		# Para pasar parámetros a las vistas con Smarty, usamos el método assign
 		$this->_view->assign('titulo', 'Listas de Acceso');
-		$this->_view->renderizar('index');
+		$this->_view->renderizar('index', 'acl');
 	}
 
 	public function roles(){
@@ -92,6 +92,8 @@ class aclController extends Controller {
 					$replace[$i]['valor']
 				);
 			}
+
+			$this->_view->assign('_mensaje', 'Se han modificado los permisos del rol');
 		}
 
 		$this->_view->assign('rol', $row);
@@ -135,7 +137,6 @@ class aclController extends Controller {
 			}
 
 			$this->_aclModel->updateRole($id, $this->getTexto('rol'));
-
 			$this->_view->assign('_mensaje', 'Se ha modificado el rol');
 		}
 
@@ -216,6 +217,7 @@ class aclController extends Controller {
 		$permiso = $this->_aclModel->getPermisoId($id);
 		if (!$permiso) { $this->redirect(); }
 		$this->_aclModel->eliminarPermiso($id);
+		$this->_view->assign('_mensaje', 'Se ha eliminado el permiso');
 		$this->redirect('acl/permisos');
 	}
 

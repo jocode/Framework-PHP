@@ -23,8 +23,6 @@ class postController extends Controller {
 	}
 
 	public function nuevo(){
-		$this->_acl->acceso('nuevo_post');
-		
 		$this->_view->assign('titulo', 'Nuevo Post');
 		$this->_view->setJs(array('nuevo'));
 
@@ -83,7 +81,6 @@ class postController extends Controller {
 	* Función para editar post
 	*/
 	public function editar($id){
-
 		# Verificamos si es un entero
 		if (!$this->filtrarInt($id)){
 			$this->redirect('post');
@@ -132,9 +129,7 @@ class postController extends Controller {
 	* Método para eliminar post
 	*/
 	public function eliminar($id){
-
-		Session::acceso('admin');
-
+		$this->_acl->acceso('eliminar_post');
 		# Verificamos si es un entero
 		if (!$this->filtrarInt($id)){
 			$this->redirect('post');

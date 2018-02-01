@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-01-31 03:41:44
+/* Smarty version 3.1.30, created on 2018-02-01 19:43:43
   from "C:\xampp\htdocs\Framework-PHP\views\acl\permisos.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5a712ce8ef06c6_75020309',
+  'unifunc' => 'content_5a735fdfad2f50_78371235',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ebc28712782ab5ee9064437bdad02ec842d08251' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\acl\\permisos.tpl',
-      1 => 1517366497,
+      1 => 1517510622,
       2 => 'file',
     ),
   ),
@@ -20,13 +20,13 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5a712ce8ef06c6_75020309 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a735fdfad2f50_78371235 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <h2>Permisos</h2>
 
-<table>
-	<thead>
-		<tr>
+<table class="table table-bordered">
+	<thead class="table table-bordered">
+		<tr class="text-center">
 			<th>Id</th>
 			<th>Permiso</th>
 			<th>Key</th>
@@ -66,8 +66,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 	</tbody>
 </table>
 
-<p>
-	<a href="<?php echo $_smarty_tpl->tpl_vars['_layoutParams']->value['root'];?>
+<a class="btn btn-success" href="<?php echo $_smarty_tpl->tpl_vars['_layoutParams']->value['root'];?>
 acl/agregar_permiso">Agregar</a>
-</p><?php }
+<?php }
 }

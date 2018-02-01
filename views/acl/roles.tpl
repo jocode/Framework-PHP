@@ -1,9 +1,9 @@
-<h2>Administración de Roles</h2>
+<h2 class="text-center">Administración de Roles</h2>
 
 {if isset($roles) && count($roles)}
-<table>
+<table class="table table-bordered">
  	<thead>
- 		<tr>
+ 		<tr class="text-center">
  			<th>ID</th>
  			<th>Role</th>
  			<th>Permisos</th>
@@ -30,6 +30,4 @@
 </table>
 {/if}
 
-<p>
-	<a href="{$_layoutParams.root}acl/nuevo_role">Agregar Rol</a>
-</p>
+<a class="btn btn-success" href="{$_layoutParams.root}acl/nuevo_role">Agregar Rol</a>

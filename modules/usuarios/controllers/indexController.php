@@ -14,7 +14,7 @@ class indexController extends usuariosController {
 		$this->_view->assign('titulo', 'Gestión de Usuarios');
 		$this->_view->setJs(array('archivo'));
 		$this->_view->assign('usuarios', $this->_usuarios->getUsuarios());
-		$this->_view->renderizar('index');
+		$this->_view->renderizar('index', 'usuarios');
 	}
 
 	public function permisos($id_usuario){

@@ -54,27 +54,17 @@ class View extends Smarty {
 
 			$menu = array(
 				array(
-					'id' => 'Inicio',
+					'id' => 'index',
 					'titulo' => 'Inicio',
 					'enlace' => BASE_URL,
 				),
 				array(
-					'id' => 'Hola',
-					'titulo' => 'Hola',
-					'enlace' => BASE_URL,
-				),
-				array(
-					'id' => 'Post',
+					'id' => 'post',
 					'titulo' => 'Post',
 					'enlace' => BASE_URL . 'post',
 				),
 				array(
-					'id' => 'ajax',
-					'titulo' => 'Ajax',
-					'enlace' => BASE_URL . 'ajax',
-				),
-				array(
-					'id' => 'acceso',
+					'id' => 'acl',
 					'titulo' => 'Listas de Acceso',
 					'enlace' => BASE_URL . 'acl'
 				),
@@ -87,23 +77,33 @@ class View extends Smarty {
 			);
 
 			if (Session::get('autenticado')){
-				$menu[] = array(
-					'id' => 'Login',
-					'titulo' => 'Cerrar Sesión',
-					'enlace' => BASE_URL . 'login/cerrar'
-					);
+				
 			} else {
-				$menu[] = array(
-					'id' => 'Login',
-					'titulo' => 'Iniciar Sesión',
-					'enlace' => BASE_URL . 'login'
-					);
 				$menu[] = array(
 					'id' => 'registro',
 					'titulo' => 'Registro',
-					'enlace' => BASE_URL . 'registro'
+					'enlace' => BASE_URL . 'usuarios/registro'
 					);
 			}
+
+			# Menú lateral
+			$menuLateral = array(
+				array(
+					'id' => 'ajax',
+					'titulo' => 'Ajax',
+					'enlace' => BASE_URL . 'ajax',
+				),
+				array(
+					'id' => 'pdf',
+					'titulo' => 'Ejemplo de PDF',
+					'enlace' => BASE_URL . 'pdf',
+				),
+				array(
+					'id' => 'paginacion',
+					'titulo' => 'Paginación de Registros',
+					'enlace' => BASE_URL . 'paginacion',
+				)
+			);
 
 			$js = array();
 
@@ -116,6 +116,7 @@ class View extends Smarty {
 				'ruta_img' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/img/',
 				'ruta_js' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/js/',
 				'menu' => $menu,
+				'menuLateral' => $menuLateral,
 				'item' => $item,
 				'js' => $js,
 				'configs' => array (
