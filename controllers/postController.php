@@ -146,6 +146,21 @@ class postController extends Controller {
 		$this->redirect('post');
 	}
 
+	public function prueba($pagina = false){
+		if (!$this->filtrarInt($pagina)){
+			$paginacion = false;
+		} else {
+			$pagina = (int) $pagina;
+		}
+
+		$this->getLibrary('Paginador'.DS.'paginador');
+		$paginador = new Paginador();
+		$this->_view->assign('posts', $paginador->paginar($this->_post->getPosts(), $pagina));
+		$this->_view->assign('paginacion', $paginador->getView('prueba', 'post/prueba'));
+		$this->_view->assign('titulo', 'Post');
+		$this->_view->renderizar('index', 'prueba');
+	}
+
 }
 
 ?>

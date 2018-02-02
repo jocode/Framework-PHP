@@ -98,6 +98,9 @@
 		<script type="text/javascript" src="{$js}"></script>
 		{/foreach}
 		{/if}
+		<script type="text/javascript">
+			var _root_ = "{$_layoutParams.root}";
+		</script>
 	</div>
 </body>
 </html>

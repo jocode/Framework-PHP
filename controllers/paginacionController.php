@@ -25,14 +25,32 @@ class paginacionController extends Controller {
 		$this->_view->renderizar('index', 'paginacion');
 	}
 
-	/*
-	public function insertarDatos(){
-		for ($i = 1; $i <= 50; $i++){
-			$this->_paginacionModel->insertarDatos("Nombre $i");
-		}
-		echo "Operacion completa";
+	public function prueba($pagina = false){
+
+		$this->_view->assign('titulo', 'Paginación');
+		$datos = $this->_paginacionModel->getDatos();
+		$this->_view->setJs(array('ajax'));
+
+		# Cargar la librería del Paginador
+		$this->getLibrary('Paginador'.DS.'paginador');
+		$paginador = new Paginador();
+		# Le pasamos los datos y la página actual al método paginar
+		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, 5, 5));
+		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax', 'paginacion/prueba'));
+		$this->_view->renderizar('index', 'paginacion');
 	}
-	*/
+
+	public function pruebaAjax(){
+		$pagina = $this->getInt('pagina');
+		$this->_view->setJs(array('ajax'));
+		$datos = $this->_paginacionModel->getDatos();
+		# Cargar la librería del Paginador
+		$this->getLibrary('Paginador'.DS.'paginador');
+		$paginador = new Paginador();
+		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, 5, 5));
+		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax'));
+		$this->_view->renderizar('ajax/ajax', false, true);
+	}
 
 }
 

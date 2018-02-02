@@ -107,7 +107,7 @@ class registroController extends Controller {
 			}
 
 			$this->_view->assign('datos', false);
-			$this->_view->assign('_error', 'Registro completado, revise su email para activar su cuenta.');
+			$this->_view->assign('_mensaje', 'Registro completado, revise su email para activar su cuenta.');
 
 		}
 

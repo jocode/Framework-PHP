@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-02-01 21:22:19
+/* Smarty version 3.1.30, created on 2018-02-02 23:15:08
   from "C:\xampp\htdocs\Framework-PHP\views\layout\default\template.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5a7376fbc23803_88761046',
+  'unifunc' => 'content_5a74e2ec2614a1_32320508',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ac5717a215f718d3f944bdc0d82b0d620f5f6316' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\layout\\default\\template.tpl',
-      1 => 1517516537,
+      1 => 1517609706,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5a7376fbc23803_88761046 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a74e2ec2614a1_32320508 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -184,6 +184,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
 ?>
 
 		<?php }?>
+		<?php echo '<script'; ?>
+ type="text/javascript">
+			var _root_ = "<?php echo $_smarty_tpl->tpl_vars['_layoutParams']->value['root'];?>
+";
+		<?php echo '</script'; ?>
+>
 	</div>
 </body>
 </html>

@@ -12,6 +12,7 @@ class View extends Smarty {
 	private $_js;
 	private $_acl;
 	private$_rutas;
+	private $_jsPlugin;
 
 	public function __construct(Request $peticion, ACL $_acl){
 		parent::__construct();
@@ -19,6 +20,7 @@ class View extends Smarty {
 		$this->_js = array();
 		$this->_acl = $_acl;
 		$this->_rutas = array();
+		$this->_jsPlugin = array();
 
 		$modulo = $this->_request->getModulo();
 		$controlador = $this->_request->getControlador();
@@ -37,7 +39,7 @@ class View extends Smarty {
 	* @param $vista nombre del archivo a renderizar
 	* @param $item item del enlace, para dejarlo seleccionado
 	*/
-	public function renderizar($vista, $item = false){
+	public function renderizar($vista, $item = false, $noLayout = false){
 
 		# Definimos el directorio del template
 		$this->template_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS ;
@@ -51,6 +53,13 @@ class View extends Smarty {
 		$rutaView = $this->_rutas['view'] . $vista . '.tpl';
 
 		if (is_readable($rutaView)){
+
+			# LLamar vistas sin la presencia del layout
+			if ($noLayout){
+				$this->template_dir = $this->_rutas['view'];
+				$this->display($this->_rutas['view'] . $vista . '.tpl');
+				exit;
+			}
 
 			$menu = array(
 				array(
@@ -119,6 +128,7 @@ class View extends Smarty {
 				'menuLateral' => $menuLateral,
 				'item' => $item,
 				'js' => $js,
+				'js_plugin' => $this->_jsPlugin,
 				'configs' => array (
 					'app_name' => APP_NAME,
 					'app_slogan' => APP_SLOGAN,
@@ -150,6 +160,17 @@ class View extends Smarty {
 			}
 		} else {
 			throw new Exception("Error al cargar JS en $this->_controlador");
+		}
+	}
+
+	public function setJsPlugin(array $js){
+		if (is_array($js) && count($js)){
+			for ($i = 0; $i < count($js); $i++){
+				$this->_jsPlugin[] = BASE_URL . 'public/js/'. $js[$i] . '.js';
+			}
+		} else {
+			throw new Exception("Error de Plugin de Javascript");
+			
 		}
 	}
 
