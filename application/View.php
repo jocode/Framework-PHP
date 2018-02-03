@@ -4,7 +4,7 @@
 * A diferencia de los controladores, que deben extender de un controlador principal, en las vistas no es necesario
 */
 
-require_once ROOT . 'libs' . DS . 'smarty' . DS . 'libs' . DS . 'Smarty.class.php';
+require_once ROOT . 'libs' . DS . 'Smarty.class' . DS . 'Smarty.class.php';
 
 class View extends Smarty {
 	
@@ -111,6 +111,11 @@ class View extends Smarty {
 					'id' => 'paginacion',
 					'titulo' => 'Paginación de Registros',
 					'enlace' => BASE_URL . 'paginacion',
+				),
+				array(
+					'id' => 'paginacion_ajax',
+					'titulo' => 'Paginación de Registros con AJAX',
+					'enlace' => BASE_URL . 'paginacion/ajax',
 				)
 			);
 

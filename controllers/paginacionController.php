@@ -25,7 +25,7 @@ class paginacionController extends Controller {
 		$this->_view->renderizar('index', 'paginacion');
 	}
 
-	public function prueba($pagina = false){
+	public function ajax($pagina = false){
 
 		$this->_view->assign('titulo', 'Paginación');
 		$datos = $this->_paginacionModel->getDatos();
@@ -38,7 +38,7 @@ class paginacionController extends Controller {
 		$this->_view->assign('datos', $paginador->paginar($datos, $pagina));
 		$this->_view->assign('paises', $this->_paginacionModel->getPaises());
 		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax', 'paginacion/prueba'));
-		$this->_view->renderizar('index', 'paginacion');
+		$this->_view->renderizar('index', 'paginacion_ajax');
 	}
 
 	public function pruebaAjax(){

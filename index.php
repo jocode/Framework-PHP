@@ -7,8 +7,9 @@ define('APP_PATH', ROOT . 'application' . DS);
 
 try {
 
+	require_once(APP_PATH . 'Autoload.php');
 	require_once(APP_PATH . 'Config.php');
-	require_once(APP_PATH . 'Request.php');
+	/*require_once(APP_PATH . 'Request.php');
 	require_once(APP_PATH . 'Bootstrap.php');
 	require_once(APP_PATH . 'Controller.php');
 	require_once(APP_PATH . 'Model.php');
@@ -17,7 +18,13 @@ try {
 	require_once(APP_PATH . 'Session.php');
 	require_once(APP_PATH . 'Hash.php');
 	require_once(APP_PATH . 'ACL.php');
-	require_once(APP_PATH . 'Registry.php');
+	require_once(APP_PATH . 'Registry.php');*/
+
+	// Obtenemos la instancia del registro, en una variable fuera de la clase
+	$registry = Registry::getInstancia();
+	$registry->_request = new Request();
+	$registry->_db = new Database();
+	$registry->_acl = new ACL();
 
 	# Inicializamos las variables de sesion
 	Session::init();

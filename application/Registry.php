@@ -42,10 +42,4 @@ class Registry {
 
 }
 
-// Obtenemos la instancia del registro, en una variable fuera de la clase
-$registry = Registry::getInstancia();
-$registry->_request = new Request();
-$registry->_db = new Database();
-$registry->_acl = new ACL();
-
 ?>
