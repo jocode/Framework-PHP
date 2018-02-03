@@ -2,6 +2,7 @@
 
 class ACL {
 
+	private $_registry;
 	private $_db;
 	private $_id;
 	private $_role;
@@ -18,12 +19,8 @@ class ACL {
 			}
 		}
 
-		try {
-			// Creamos la instancia de la clase Database
-			$this->_db = new Database();
-		} catch (PDOException $e){
-			echo $e->getMessage();
-		}
+		$this->_registry = Registry::getInstancia();
+		$this->_db = $this->_registry->_db;
 		$this->_role = $this->_getRole();
 		$this->_permisos = $this->getPermisosRole();
 		$this->_compilarAcl();

@@ -5,14 +5,16 @@
 */
 abstract class Controller {
 
+	private $_registry;
 	protected $_view;
 	protected $_acl;
 	protected $_request;
 
 	# Con este método constructor, creamos una instancia de la clase View, y queda disponible para todos los controladores
 	public function __construct(){
-		$this->_acl = new ACL();
-		$this->_request = new Request();
+		$this->_registry = Registry::getInstancia();
+		$this->_acl = new $this->_registry->_acl;
+		$this->_request = $this->_registry->_request;
 		$this->_view = new View($this->_request, $this->_acl);
 	}
 

@@ -5,12 +5,13 @@
 */
 class Model {
 
+	private $_registry;
 	protected $_db;
 
 	public function __construct(){
 		try {
-			// Creamos la instancia de la clase Database
-			$this->_db = new Database();
+			$this->_registry = Registry::getInstancia();
+			$this->_db = $this->_registry->_db;
 		} catch (PDOException $e){
 			echo $e->getMessage();
 		}

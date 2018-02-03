@@ -13,16 +13,16 @@ try {
 	require_once(APP_PATH . 'Controller.php');
 	require_once(APP_PATH . 'Model.php');
 	require_once(APP_PATH . 'View.php');
-	require_once(APP_PATH . 'Registro.php');
 	require_once(APP_PATH . 'Database.php');
 	require_once(APP_PATH . 'Session.php');
 	require_once(APP_PATH . 'Hash.php');
 	require_once(APP_PATH . 'ACL.php');
+	require_once(APP_PATH . 'Registry.php');
 
 	# Inicializamos las variables de sesion
 	Session::init();
 
-	Bootstrap::run(new Request());
+	Bootstrap::run($registry->_request);
 } catch (Exception $e){
 	echo $e->getMessage();
 }
