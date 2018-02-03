@@ -15,6 +15,7 @@ class registroController extends Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->_registro = $this->loadModel('registro');
+		$this->_view->setTemplate('template_1');
 	}
 
 	public function index(){

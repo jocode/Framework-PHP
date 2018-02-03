@@ -13,6 +13,7 @@ class View extends Smarty {
 	private $_acl;
 	private$_rutas;
 	private $_jsPlugin;
+	private $_template;
 
 	public function __construct(Request $peticion, ACL $_acl){
 		parent::__construct();
@@ -21,6 +22,7 @@ class View extends Smarty {
 		$this->_acl = $_acl;
 		$this->_rutas = array();
 		$this->_jsPlugin = array();
+		$this->_template = DEFAULT_LAYOUT;
 
 		$modulo = $this->_request->getModulo();
 		$controlador = $this->_request->getControlador();
@@ -42,9 +44,9 @@ class View extends Smarty {
 	public function renderizar($vista, $item = false, $noLayout = false){
 
 		# Definimos el directorio del template
-		$this->template_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS ;
+		$this->template_dir = ROOT . 'views' . DS . 'layout' . DS . $this->_template . DS ;
 		#Definimos el directorio de configuraciones, para guardar los archivos de configuración de las plantillas
-		$this->config_dir = ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'configs' . DS;
+		$this->config_dir = ROOT . 'views' . DS . 'layout' . DS . $this->_template . DS . 'configs' . DS;
 		# Definimos los directorio temporales
 		$this->cache_dir = ROOT . 'tmp' . DS . 'cache' . DS;
 		$this->compile_dir = ROOT . 'tmp' . DS . 'template' . DS;
@@ -126,9 +128,9 @@ class View extends Smarty {
 			}
 
 			$_layoutParams = array(
-				'ruta_css' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/css/',
-				'ruta_img' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/img/',
-				'ruta_js' => BASE_URL . 'views/layout/'. DEFAULT_LAYOUT . '/js/',
+				'ruta_css' => BASE_URL . 'views/layout/'. $this->_template . '/css/',
+				'ruta_img' => BASE_URL . 'views/layout/'. $this->_template . '/img/',
+				'ruta_js' => BASE_URL . 'views/layout/'. $this->_template . '/js/',
 				'menu' => $menu,
 				'menuLateral' => $menuLateral,
 				'item' => $item,
@@ -177,6 +179,47 @@ class View extends Smarty {
 			throw new Exception("Error de Plugin de Javascript");
 			
 		}
+	}
+
+	/**
+	* Método para cambiar de template desde los controladores
+	*/
+	public function setTemplate($template){
+		$this->_template = (string) $template;
+	}
+
+	/**
+	* Método que llama Widget
+	*/
+	public function widget($widget, $method, $options = array() ){
+		if (!is_array($options)){
+			$options = array($options);
+		}
+
+		$rutaWidget = ROOT . 'widgets' . DS . $widget .  '.php';
+
+		if (is_readable($rutaWidget)){
+			include_once $rutaWidget;
+
+			$widgetClass = $widget . 'Widget';
+			if (!class_exists($widgetClass)){
+				throw new Exception("No se encontró el Widget " . $widget);
+			}
+
+			// Verifica si exite el método en la clase wigdet
+			if (is_callable($widgetClass, $method)){
+				if (count($options)){
+					return call_user_func_array(array(new $widgetClass, $method), $options);
+				} else {
+					return call_user_func(array(new $widgetClass, $method));
+				}
+			}
+			throw new Exception("Error de método widget ". $widget);
+			
+		}
+
+		throw new Exception("Error de Widget " . $widget);
+		
 	}
 
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-02-03 22:50:36
-  from "C:\xampp\htdocs\Framework-PHP\views\layout\default\template.tpl" */
+/* Smarty version 3.1.30, created on 2018-02-03 22:04:04
+  from "C:\xampp\htdocs\Framework-PHP\views\layout\template_1\template.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5a762eac3ddf60_53378422',
+  'unifunc' => 'content_5a7623c4c75da3_03460008',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'ac5717a215f718d3f944bdc0d82b0d620f5f6316' => 
+    '054f48bd7d0da3b8fc60bbbc3136fa4113b3c6d9' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\layout\\default\\template.tpl',
-      1 => 1517694608,
+      0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\layout\\template_1\\template.tpl',
+      1 => 1517691843,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5a762eac3ddf60_53378422 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a7623c4c75da3_03460008 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,7 +44,7 @@ public/js/bootstrap.min.js"><?php echo '</script'; ?>
 >
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -130,7 +130,34 @@ usuarios/login">
 			</div>
 			<div class="col-4">
 				<!-- Menú lateral -->
-				
+				<div class="d-flex justify-content-center">
+					<div class="btn-group btn-group-vertical">
+						<?php if (isset($_smarty_tpl->tpl_vars['_layoutParams']->value['menuLateral'])) {?>
+						<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['_layoutParams']->value['menuLateral'], 'item');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['item']->value) {
+?>
+						<?php if (isset($_smarty_tpl->tpl_vars['_layoutParams']->value['item']) && $_smarty_tpl->tpl_vars['_layoutParams']->value['item'] == $_smarty_tpl->tpl_vars['item']->value['id']) {?>
+						<?php $_smarty_tpl->_assignInScope('_item_style', 'active');
+?>
+						<?php } else { ?>
+						<?php $_smarty_tpl->_assignInScope('_item_style', '');
+?>
+						<?php }?>
+						<a class="btn btn-light <?php echo $_smarty_tpl->tpl_vars['_item_style']->value;?>
+" href="<?php echo $_smarty_tpl->tpl_vars['item']->value['enlace'];?>
+"><?php echo $_smarty_tpl->tpl_vars['item']->value['titulo'];?>
+</a>
+						<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+						<?php }?>
+					</div>
+				</div>
 				<!-- /menú lateral -->
 			</div>
 		</div>
