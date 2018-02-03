@@ -38,6 +38,7 @@ class Paginador {
 		$paginacion = array();
 		$paginacion['actual'] = $pagina;
 		$paginacion['total'] = $total_paginas;
+		$paginacion['limite'] = $limite;
 
 		if ($pagina > 1){
 			$paginacion['primero'] = 1;

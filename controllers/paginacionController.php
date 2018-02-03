@@ -35,19 +35,35 @@ class paginacionController extends Controller {
 		$this->getLibrary('Paginador'.DS.'paginador');
 		$paginador = new Paginador();
 		# Le pasamos los datos y la página actual al método paginar
-		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, 5, 5));
+		$this->_view->assign('datos', $paginador->paginar($datos, $pagina));
+		$this->_view->assign('paises', $this->_paginacionModel->getPaises());
 		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax', 'paginacion/prueba'));
 		$this->_view->renderizar('index', 'paginacion');
 	}
 
 	public function pruebaAjax(){
 		$pagina = $this->getInt('pagina');
+		$nombre = $this->getTexto('nombre');
+		$pais = $this->getInt('pais');
+		$ciudad = $this->getInt('ciudad');
+		$registros = $this->getInt('registros');
+
+		$condicion = 'WHERE ';
+		$condicion.= "nombre LIKE '%$nombre%' ";
+		if ($pais){
+			$condicion.= "AND prueba.id_pais = $pais ";
+		}
+		if ($ciudad){
+			$condicion.= "AND prueba.id_ciudad = $ciudad";
+		}
+		
+
 		$this->_view->setJs(array('ajax'));
-		$datos = $this->_paginacionModel->getDatos();
+		$datos = $this->_paginacionModel->getDatos($condicion);
 		# Cargar la librería del Paginador
 		$this->getLibrary('Paginador'.DS.'paginador');
 		$paginador = new Paginador();
-		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, 5, 5));
+		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, $registros));
 		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax'));
 		$this->_view->renderizar('ajax/ajax', false, true);
 	}

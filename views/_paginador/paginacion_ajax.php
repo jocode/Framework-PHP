@@ -49,5 +49,23 @@ if (isset($this->_paginacion)): ?>
 		<?php endif; ?>
 	</ul>
 </nav>
+<div style="text-align: center;">
+	<p>
+		<small>
+			Página <?php echo $this->_paginacion['actual']; ?> de <?php echo $this->_paginacion['total']; ?>
+				<br/>
+				Registros por página
+				<select id="registros" class="spam1">
+					<?php 
+					for ($i = 10; $i <= 100; $i+=10): ?>
+					<option value="<?php echo $i; ?>" <?php if ($i == $this->_paginacion['limite']) echo "selected" ?>>
+						<?php echo $i; ?>
+					</option>
+					<?php
+					endfor; ?>
+				</select>
+			</small>
+	</p>
+</div>
 <?php endif; ?>
 <br/>
