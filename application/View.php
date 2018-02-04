@@ -4,7 +4,7 @@
 * A diferencia de los controladores, que deben extender de un controlador principal, en las vistas no es necesario
 */
 
-require_once ROOT . 'libs' . DS . 'Smarty.class' . DS . 'Smarty.class.php';
+require_once ROOT . 'libs' . DS . 'Smarty' . DS . 'Smarty.class.php';
 
 class View extends Smarty {
 	
@@ -14,6 +14,7 @@ class View extends Smarty {
 	private$_rutas;
 	private $_jsPlugin;
 	private $_template;
+	private $_item;
 
 	public function __construct(Request $peticion, ACL $_acl){
 		parent::__construct();
@@ -23,6 +24,7 @@ class View extends Smarty {
 		$this->_rutas = array();
 		$this->_jsPlugin = array();
 		$this->_template = DEFAULT_LAYOUT;
+		$this->_item = '';
 
 		$modulo = $this->_request->getModulo();
 		$controlador = $this->_request->getControlador();
@@ -42,6 +44,9 @@ class View extends Smarty {
 	* @param $item item del enlace, para dejarlo seleccionado
 	*/
 	public function renderizar($vista, $item = false, $noLayout = false){
+		if ($item){
+			$this->_item = $item;
+		}
 
 		# Definimos el directorio del template
 		$this->template_dir = ROOT . 'views' . DS . 'layout' . DS . $this->_template . DS ;
@@ -94,7 +99,7 @@ class View extends Smarty {
 					'id' => 'registro',
 					'titulo' => 'Registro',
 					'enlace' => BASE_URL . 'usuarios/registro'
-					);
+				);
 			}
 
 			# Menú lateral
@@ -133,7 +138,7 @@ class View extends Smarty {
 				'ruta_js' => BASE_URL . 'views/layout/'. $this->_template . '/js/',
 				'menu' => $menu,
 				'menuLateral' => $menuLateral,
-				'item' => $item,
+				'item' => $this->_item,
 				'js' => $js,
 				'js_plugin' => $this->_jsPlugin,
 				'configs' => array (
@@ -151,12 +156,13 @@ class View extends Smarty {
 			$this->assign('_layoutParams', $_layoutParams);
 			# Le pasamos la lista de control de acceso
 			$this->assign('_acl', $this->_acl);
+			# Asignamos los widgets a la vista
+			$this->assign('widgets', $this->getWidgets());
 			# LLamamos el template
 			$this->display('template.tpl');
 		} else {
 			throw new Exception("No se encontró la vista $vista");
 		}
-
 	}
 
 
@@ -219,7 +225,62 @@ class View extends Smarty {
 		}
 
 		throw new Exception("Error de Widget " . $widget);
-		
+	}
+
+	/**
+	* Obtenemos las configuraciones de las posiciones del layout
+	*/
+	public function getLayoutPositions(){
+		if (is_readable(ROOT . 'views' . DS . 'layout' . DS . $this->_template . DS . 'configs.php')){
+			include_once ROOT . 'views' . DS . 'layout' . DS . $this->_template . DS . 'configs.php';
+			return get_layout_positions();
+		}
+		throw new Exception("Error de configuración de Widget layout");
+	}
+
+	/**
+	* Nos devolverá los widgets configurados
+	*/
+	public function getWidgets(){
+		$widgets = array(
+			'menu-sidebar' => array(
+				'config' => $this->widget('menu', 'getConfig'),  
+				'content' => array('menu', 'getMenu', $this->_item)
+			),
+		);
+
+		$positions = $this->getLayoutPositions();
+		$keys = array_keys($widgets);
+
+		#Verificamos si la posición del widget está presente
+		foreach ($keys as $key) {
+			if ( isset($positions[$widgets[$key]['config']['position']]) ){
+				/*Verificar si está deshabilitado para la vista*/
+				if (!isset($widgets[$key]['config']['hide']) || !in_array($this->_item, $widgets[$key]['config']['hide']) ){
+					/* Verificamos si está habilitado para la vista */
+					if ($widgets[$key]['config']['show'] === 'all' || in_array($this->_item, $widgets[$key]['config']['show']) ){
+						// Llenar la posición del Layout
+						$positions[$widgets[$key]['config']['position']][] = $this->getWidgetContent($widgets[$key]['content']);
+					}
+				}
+			}
+		}
+		return $positions;
+	}
+
+	/**
+	* Verificamos si se está enviando el widget y el método y devolvemos el widget 
+	*/
+	public function getWidgetContent(array $content){
+		if (!isset($content[0]) || !isset($content[1])){
+			throw new Exception("Error contenido Widget");
+			return;
+		}
+		# Verificamos si están contenidas las opciones
+		if (!isset($content[2])){
+			$content[2] = array();
+		}
+		return $this->widget($content[0], $content[1], $content[2]);
 	}
 
 }

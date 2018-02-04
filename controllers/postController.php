@@ -14,7 +14,7 @@ class postController extends Controller {
 	public function index($pagina = false){
 
 		# Agregar los datos del modelo en la variable posts
-		$this->getLibrary('Paginador'.DS.'paginador');
+		$this->getLibrary('Paginador'.DS.'Paginador');
 		$paginador = new Paginador();
 		$this->_view->assign('posts', $paginador->paginar($this->_post->getPosts(), $pagina));
 		$this->_view->assign('paginacion', $paginador->getView('prueba', 'post/index'));
@@ -153,7 +153,7 @@ class postController extends Controller {
 			$pagina = (int) $pagina;
 		}
 
-		$this->getLibrary('Paginador'.DS.'paginador');
+		$this->getLibrary('Paginador'.DS.'Paginador');
 		$paginador = new Paginador();
 		$this->_view->assign('posts', $paginador->paginar($this->_post->getPosts(), $pagina));
 		$this->_view->assign('paginacion', $paginador->getView('prueba', 'post/prueba'));

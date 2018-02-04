@@ -16,7 +16,7 @@ class paginacionController extends Controller {
 		$datos = $this->_paginacionModel->getDatos();
 
 		# Cargar la librería del Paginador
-		$this->getLibrary('Paginador'.DS.'paginador');
+		$this->getLibrary('Paginador'.DS.'Paginador');
 		#Instanciar la librería
 		$paginador = new Paginador();
 		# Le pasamos los datos y la página actual al método paginar
@@ -32,7 +32,7 @@ class paginacionController extends Controller {
 		$this->_view->setJs(array('ajax'));
 
 		# Cargar la librería del Paginador
-		$this->getLibrary('Paginador'.DS.'paginador');
+		$this->getLibrary('Paginador'.DS.'Paginador');
 		$paginador = new Paginador();
 		# Le pasamos los datos y la página actual al método paginar
 		$this->_view->assign('datos', $paginador->paginar($datos, $pagina));
@@ -61,7 +61,7 @@ class paginacionController extends Controller {
 		$this->_view->setJs(array('ajax'));
 		$datos = $this->_paginacionModel->getDatos($condicion);
 		# Cargar la librería del Paginador
-		$this->getLibrary('Paginador'.DS.'paginador');
+		$this->getLibrary('Paginador'.DS.'Paginador');
 		$paginador = new Paginador();
 		$this->_view->assign('datos', $paginador->paginar($datos, $pagina, $registros));
 		$this->_view->assign('paginacion', $paginador->getView('paginacion_ajax'));

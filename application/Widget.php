@@ -14,7 +14,7 @@ abstract class Widget {
 		if (is_readable($rutaModel)){
 			include_once $rutaModel;
 
-			$modelClass = $model.'Widget';
+			$modelClass = $model.'ModelWidget';
 
 			if (class_exists($modelClass)){
 				return new $modelClass;

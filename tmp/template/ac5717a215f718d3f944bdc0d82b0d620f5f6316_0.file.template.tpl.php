@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.30, created on 2018-02-03 22:50:36
+/* Smarty version 3.1.30, created on 2018-02-04 03:43:53
   from "C:\xampp\htdocs\Framework-PHP\views\layout\default\template.tpl" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.30',
-  'unifunc' => 'content_5a762eac3ddf60_53378422',
+  'unifunc' => 'content_5a767369cb8fc3_47248792',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ac5717a215f718d3f944bdc0d82b0d620f5f6316' => 
     array (
       0 => 'C:\\xampp\\htdocs\\Framework-PHP\\views\\layout\\default\\template.tpl',
-      1 => 1517694608,
+      1 => 1517712232,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5a762eac3ddf60_53378422 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5a767369cb8fc3_47248792 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
 <!DOCTYPE html>
 <html>
@@ -130,7 +130,21 @@ usuarios/login">
 			</div>
 			<div class="col-4">
 				<!-- Menú lateral -->
-				
+				<?php if (isset($_smarty_tpl->tpl_vars['widgets']->value['sidebar'])) {?>
+					<?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['widgets']->value['sidebar'], 'widget');
+if ($_from !== null) {
+foreach ($_from as $_smarty_tpl->tpl_vars['widget']->value) {
+?>
+						<?php echo $_smarty_tpl->tpl_vars['widget']->value;?>
+
+					<?php
+}
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl);
+?>
+
+				<?php }?>
 				<!-- /menú lateral -->
 			</div>
 		</div>

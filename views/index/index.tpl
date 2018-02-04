@@ -3,6 +3,3 @@
 			<strong>Hola! </strong> Bienvenido.
 	</div>
 </div>
-<p>
-	{$widget}
-</p>

@@ -72,7 +72,11 @@
 			</div>
 			<div class="col-4">
 				<!-- Menú lateral -->
-				
+				{if isset($widgets.sidebar)}
+					{foreach from=$widgets.sidebar item=widget}
+						{$widget}
+					{/foreach}
+				{/if}
 				<!-- /menú lateral -->
 			</div>
 		</div>

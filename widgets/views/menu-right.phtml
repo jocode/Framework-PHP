@@ -1,5 +1,15 @@
-<pre>
-<?php 
-print_r($menu);
-?>
-</pre>
+<h4 class="text-center">Este es un widget</h4>
+<div class="d-flex justify-content-center">
+	<div class="btn-group btn-group-vertical">
+		<?php if (isset($menu)): ?>
+			<?php foreach ($menu as $item): ?>
+				<?php if (isset($item['id'])): ?>
+					<?php $style = ''; ?>
+				<?php else: ?>
+					<?php $style = ''; ?>
+				<?php endif; ?>
+				<a class="btn btn-light <?php echo $style; ?>" href="<?php echo $item['enlace']; ?>"><?php echo $item['titulo']; ?></a>
+			<?php endforeach; ?>
+		<?php endif; ?>
+	</div>
+</div>

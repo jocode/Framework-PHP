@@ -108,12 +108,14 @@ DROP TABLE IF EXISTS `prueba`;
 CREATE TABLE `prueba` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `id_pais` int(11) DEFAULT NULL,
+  `id_ciudad` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 /*Data for the table `prueba` */
 
-insert  into `prueba`(`id`,`nombre`) values (1,'Nombre 1'),(2,'Nombre 2'),(3,'Nombre 3'),(4,'Nombre 4'),(5,'Nombre 5'),(6,'Nombre 6'),(7,'Nombre 7'),(8,'Nombre 8'),(9,'Nombre 9'),(10,'Nombre 10'),(11,'Nombre 11'),(12,'Nombre 12'),(13,'Nombre 13'),(14,'Nombre 14'),(15,'Nombre 15'),(16,'Nombre 16'),(17,'Nombre 17'),(18,'Nombre 18'),(19,'Nombre 19'),(20,'Nombre 20'),(21,'Nombre 21'),(22,'Nombre 22'),(23,'Nombre 23'),(24,'Nombre 24'),(25,'Nombre 25'),(26,'Nombre 26'),(27,'Nombre 27'),(28,'Nombre 28'),(29,'Nombre 29'),(30,'Nombre 30'),(31,'Nombre 31'),(32,'Nombre 32'),(33,'Nombre 33'),(34,'Nombre 34'),(35,'Nombre 35'),(36,'Nombre 36'),(37,'Nombre 37'),(38,'Nombre 38'),(39,'Nombre 39'),(40,'Nombre 40'),(41,'Nombre 41'),(42,'Nombre 42'),(43,'Nombre 43'),(44,'Nombre 44'),(45,'Nombre 45'),(46,'Nombre 46'),(47,'Nombre 47'),(48,'Nombre 48'),(49,'Nombre 49'),(50,'Nombre 50');
+insert  into `prueba`(`id`,`nombre`,`id_pais`,`id_ciudad`) values (1,'Nombre 1',1,1),(2,'Nombre 2',1,1),(3,'Nombre 3',1,1),(4,'Nombre 4',1,1),(5,'Nombre 5',1,1),(6,'Nombre 6',1,1),(7,'Nombre 7',1,1),(8,'Nombre 8',1,1),(9,'Nombre 9',1,1),(10,'Nombre 10',1,1),(11,'Nombre 11',1,1),(12,'Nombre 12',1,1),(13,'Nombre 13',1,1),(14,'Nombre 14',1,1),(15,'Nombre 15',1,1),(16,'Nombre 16',2,2),(17,'Nombre 17',2,2),(18,'Nombre 18',2,2),(19,'Nombre 19',2,2),(20,'Nombre 20',2,2),(21,'Nombre 21',2,2),(22,'Nombre 22',2,2),(23,'Nombre 23',2,2),(24,'Nombre 24',2,2),(25,'Nombre 25',2,2),(26,'Nombre 26',2,2),(27,'Nombre 27',2,2),(28,'Nombre 28',2,2),(29,'Nombre 29',2,2),(30,'Nombre 30',2,2),(31,'Nombre 31',7,7),(32,'Nombre 32',7,7),(33,'Nombre 33',7,7),(34,'Nombre 34',7,7),(35,'Nombre 35',7,7),(36,'Nombre 36',7,7),(37,'Nombre 37',7,7),(38,'Nombre 38',7,7),(39,'Nombre 39',7,7),(40,'Nombre 40',7,7),(41,'Nombre 41',7,7),(42,'Nombre 42',7,7),(43,'Nombre 43',7,7),(44,'Nombre 44',7,7),(45,'Nombre 45',7,7),(46,'Nombre 46',3,8),(47,'Nombre 47',3,8),(48,'Nombre 48',3,8),(49,'Nombre 49',3,8),(50,'Nombre 50',3,8);
 
 /*Table structure for table `rol` */
 
